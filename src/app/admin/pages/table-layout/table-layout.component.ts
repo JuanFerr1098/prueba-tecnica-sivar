@@ -31,7 +31,7 @@ export default class TableLayoutComponent implements OnInit {
             },
           },
           {
-            label: 'Tabla de compañias',
+            label: 'Tabla de Empresas',
             icon: 'pi pi-building',
             command: () => {
               this.router.navigate(['admin/table']);

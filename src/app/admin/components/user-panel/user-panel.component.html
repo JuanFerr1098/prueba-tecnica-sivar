@@ -31,12 +31,19 @@
                     <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0" data-id="42">{{user.lastName}}</td>
                     <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0" data-id="42">{{user.role?.roleName}}
                     </td>
-                    <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0" data-id="43"><button
+                    <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0" data-id="43">
+                        <button
                             (click)="showEditDialog(user)"
                             class="bg-gray-800 text-white inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
-                            data-id="44">Editar</button><button
+                            data-id="44">Editar</button>
+                            <button
+                            (click)="FindCompanies(user)"
+                            class="bg-blue-800 text-white inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+                            data-id="44">Consultar Empresas</button>
+                        <button
                             class="bg-rose-600 text-white inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 ml-2"
-                            data-id="45">Eliminar</button></td>
+                            data-id="45">Eliminar</button>
+                        </td>
                 </tr>
                 }
 
@@ -66,15 +73,34 @@
         <span class="p-text-secondary block mb-5">Editar un usuario</span>
         <div class="flex align-items-center gap-3 mb-3">
             <label for="name" class="font-semibold w-6rem">Nombre</label>
-            <input pInputText id="name" [(ngModel)]="userToCreate.name" class="flex-auto" autocomplete="off" />
+            <input pInputText id="name" [(ngModel)]="userToEdit.name" class="flex-auto" autocomplete="off" />
         </div>
         <div class="flex align-items-center gap-3 mb-3">
             <label for="lastName" class="font-semibold w-6rem">Apellido</label>
-            <input pInputText id="lastName" [(ngModel)]="userToCreate.lastName" class="flex-auto" autocomplete="off" />
+            <input pInputText id="lastName" [(ngModel)]="userToEdit.lastName" class="flex-auto" autocomplete="off" />
         </div>
         <div class="flex justify-content-end gap-2">
-            <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
-            <p-button label="Save" (onClick)="createUser()" />
+            <p-button label="Cancel" severity="secondary" (onClick)="editVisible = false" />
+            <p-button label="Save" (onClick)="updateUser()" />
         </div>
     </p-dialog>
+</div>
+<div class="card flex justify-content-center">
+    <p-dialog header="Ver Empresas" [modal]="true" [(visible)]="visibleCompanies" [style]="{ width: '25rem' }">
+        <table class="w-full caption-bottom text-sm" data-id="31">
+            <thead class="[&amp;_tr]:border-b" data-id="32">
+                <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted" data-id="33">
+                    <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0"
+                        data-id="35">Nombre Empresa</th>
+                </tr>
+            </thead>
+            <tbody class="[&amp;_tr:last-child]:border-0" data-id="38">
+                @for (company of companies; track $index) {
+                    <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted" data-id="39">
+                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0" data-id="40">{{company.companyName}}</td>
+                }
+            </tbody>
+        </table>
+    </p-dialog>
+
 </div>

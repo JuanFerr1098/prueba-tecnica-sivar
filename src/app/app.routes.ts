@@ -12,11 +12,11 @@ export const routes: Routes = [
       },
       {
         path:'admin/role',
-        loadComponent: ()=> import('./admin/components/user-table/user-table.component')
+        loadComponent: ()=> import('./admin/components/role-panel/role-panel.component')
       },
       {
         path:'admin/company',
-        loadComponent: ()=> import('./admin/components/user-table/user-table.component')
+        loadComponent: ()=> import('./admin/components/company-panel/company-panel.component')
       }
     ]
   },
