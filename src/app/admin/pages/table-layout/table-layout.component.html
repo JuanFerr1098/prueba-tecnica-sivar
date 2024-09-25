@@ -1,0 +1,29 @@
+
+<div class="flex flex-1 overflow-hidden">
+    <app-side-bar></app-side-bar>
+</div>
+
+<div class="flex flex-row w-auto h-full">
+    <div class="card flex justify-center items-center w-auto">
+        <p-menu [model]="items">
+            <ng-template pTemplate="item" let-item>
+                @if (item.route) {
+                <a [routerLink]="item.route" class="p-menuitem-link">
+                    <span [class]="item.icon"></span>
+                    <span class="ml-2">{{ item.label }}</span>
+                </a>
+                }
+                @else {
+                <a class="p-menuitem-link">
+                    <span [class]="item.icon"></span>
+                    <span class="ml-2">{{ item.label }}</span>
+                </a>
+                }
+            </ng-template>
+        </p-menu>
+    </div>
+    <div class="flex items-center justify-center w-full">
+        <router-outlet></router-outlet>
+    </div>
+
+</div>
