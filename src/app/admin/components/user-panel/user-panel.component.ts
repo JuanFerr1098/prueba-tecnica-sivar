@@ -4,22 +4,8 @@ import { CommonModule } from '@angular/common';
 import { PrimeMaterialModule } from '../../../shared/material/prime-material/prime-material.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-
-interface User {
-  id?: string;
-  name: string;
-  lastName: string;
-  role?: UserRole;
-  companies?: UserCompany[];
-}
-interface UserRole {
-  id?: string;
-  roleName: string;
-}
-interface UserCompany {
-  id?: string;
-  companyName: string;
-}
+import { ApiService } from '../../services/api.service';
+import { Company, User } from '../../../core/models/user.model';
 
 @Component({
   selector: 'app-user-panel',
@@ -29,6 +15,17 @@ interface UserCompany {
   styles: ``,
 })
 export default class UserPanelComponent {
+
+  constructor(
+    private service: ApiService
+  ) {}
+  NgOnInit(): void {
+    this.service.GetUsers();
+    this.service.getUsers().subscribe((users) => {
+      this.users = users
+    })
+  }
+
   userToCreate: User = {
     name: '',
     lastName: '',
@@ -42,8 +39,7 @@ export default class UserPanelComponent {
   visibleCompanies: boolean = false;
 
   public users: User[] = USERS;
-  public companies? : UserCompany[] = []
-  constructor(private http: HttpClient) {}
+  public companies? : Company[] = []
   showDialog() {
     this.visible = true;
   }
@@ -53,15 +49,8 @@ export default class UserPanelComponent {
   }
   createUser() {
     console.log(this.userToCreate);
-    const apiUrl = 'localhost:7108/user';
-    this.http.post(apiUrl, this.userToCreate).subscribe(
-      (response) => {
-        console.log('Response:', response);
-      },
-      (error) => {
-        console.error('Error:', error);
-      }
-    );
+    this.service.CreateUser(this.userToCreate);
+    
   }
   updateUser() {}
   FindCompanies(user: User) {
